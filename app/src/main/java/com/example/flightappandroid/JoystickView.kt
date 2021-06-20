@@ -1,4 +1,4 @@
-package com.example.flightapp2
+package com.example.flightappandroid
 
 import android.content.Context
 import android.graphics.Canvas
@@ -17,8 +17,11 @@ import kotlin.math.min
 class JoystickView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
   ) : View(context, attrs, defStyleAttr){
+  open class OnTouchChangeListener {
 
-    private var middle1 : PointF = PointF()
+  }
+
+  private var middle1 : PointF = PointF()
     private var middle2 : PointF = PointF()
     private var radius1 : Float = 0.0F
     private var radius2 : Float = 0.0F
@@ -124,6 +127,10 @@ class JoystickView @JvmOverloads constructor(
     paint.style = Paint.Style.FILL
     paint.color = Color.RED
     canvas.drawCircle(this.middle2.x, this.middle2.y, radius2, paint)
+  }
+
+  fun setOnTouchChangeListener(onTouchChangeListener: JoystickView.OnTouchChangeListener) {
+    println("Inside of the set on touch change listener")
   }
 
 }

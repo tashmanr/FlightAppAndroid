@@ -1,22 +1,29 @@
-package com.example.flightapp2
+package com.example.flightappandroid
 
 import java.io.PrintWriter
 import java.net.Socket
 
-class Model {
-    //lateinit var fg: Socket
+class Model(port:Int, ip: String) {
+    //var fg = Socket(ip, port)
     //var out: PrintWriter = PrintWriter(fg.getOutputStream(),true)
-    fun connectToSocket(port: String, ip: String){
-        println("connect to socket")
-        //println("ip is:$ip")
-       // println("port is: $port")
-        //fg = Socket(ip,port)
+    fun setRudder(f: Float){
+        //out.print("set /controls/flight/rudder $f\r\n")
+        //out.flush()
     }
-    fun getRudder(f: Float){}
-    fun getThrottle(f: Float){
+    fun setThrottle(f: Float){
         println("Model throttle is:$f")
+        //out.print("set /controls/flight/throttle $f\r\n")
+        //out.flush()
     }
-    fun getElevator(f: Float){}
-    fun getAileron(f: Float){}
+    fun setElevator(f: Float){
+        println("Model elevator is:$f")
+        //out.print("set /controls/flight/elevator $f\r\n")
+        //out.flush()
+    }
+    fun setAileron(f: Float){
+        println("Model aileron is:$f")
+        //out.print("set /controls/flight/aileron $f\r\n")
+        //out.flush()
+    }
 
 }

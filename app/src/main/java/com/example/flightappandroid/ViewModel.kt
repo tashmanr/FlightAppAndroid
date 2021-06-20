@@ -1,31 +1,29 @@
-package com.example.flightapp2
+package com.example.flightappandroid
 
 import android.graphics.PointF
 
 class ViewModel {
-    private var model : Model = Model()
-    //private var ip : String = ""
-    //private var port: Int = 0
+    private lateinit var model : Model
     fun connect(ip:String, port:String){
         println("went into connect ;)")
-
-        model.connectToSocket(port,ip)
+        model = Model(port.toInt(), ip)
         println("connected :)")
     }
 
-    fun getRudder(f: Float){
-        model.getRudder(f)
+    fun setRudder(f: Float){
+        model.setRudder(f)
     }
-    fun getThrottle(f: Float){
+
+    fun setThrottle(f: Float){
         println("viewModel throttle is:$f")
-        model.getThrottle(f)
-    }
-    fun getElevator(f: Float){
-        model.getElevator(f)
-    }
-    fun getAileron(f: Float){
-        model.getAileron(f)
+        model.setThrottle(f)
     }
 
+    fun setElevator(f: Float){
+        model.setElevator(f)
+    }
 
+    fun setAileron(f: Float){
+        model.setAileron(f)
+    }
 }
