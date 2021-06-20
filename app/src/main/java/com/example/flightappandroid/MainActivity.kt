@@ -29,31 +29,28 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         ip = findViewById<EditText>(R.id.IP)
         port = findViewById<EditText>(R.id.port)
         joystick = findViewById<JoystickView>(R.id.joystick)
-        joystick.setMainView(this)
         throttle = findViewById<SeekBar>(R.id.throttle)
         rudder = findViewById<SeekBar>(R.id.rudder)
-
+        joystick.onChange = {
+                aileron:Float, elevator:Float->
+            viewModel.setAileron(aileron)
+            viewModel.setElevator(elevator)
+        }
         throttle?.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(
                 seek: SeekBar,
                 progress: Int, fromUser: Boolean
             ) {
-                // write custom code for progress is changed
-                println("mainActivity throttle is:$progress")
-                viewModel.setThrottle(progress.toFloat())
+                var tmp = progress.toFloat()/100
+                viewModel.setThrottle(tmp)
             }
 
             override fun onStartTrackingTouch(seek: SeekBar) {
-                // write custom code for progress is started
             }
 
             override fun onStopTrackingTouch(seek: SeekBar) {
-                // write custom code for progress is stopped
                 Log.d("myTag", throttle.progress.toString())
-                /*Toast.makeText(this@MainActivity,
-                    "Progress is: " + throttle.progress + "%",
-                    Toast.LENGTH_SHORT).show()*/
             }
         })
         rudder?.setOnSeekBarChangeListener(object :
@@ -62,41 +59,29 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 seek: SeekBar,
                 progress: Int, fromUser: Boolean
             ) {
-                // write custom code for progress is changed
-                println("mainActivity rudder is:$progress")
-                viewModel.setRudder(progress.toFloat())
+                var tmp = (progress.toFloat()-50)/50
+                viewModel.setRudder(tmp)
             }
 
             override fun onStartTrackingTouch(seek: SeekBar) {
-                // write custom code for progress is started
             }
 
             override fun onStopTrackingTouch(seek: SeekBar) {
-                // write custom code for progress is stopped
                 Log.d("myTag", rudder.progress.toString())
-                /*Toast.makeText(this@MainActivity,
-                    "Progress is: " + rudder.progress + "%",
-                    Toast.LENGTH_SHORT).show()*/
             }
         })
+
+
 
     }
 
 
     override fun onClick(view: View?) {
-        println("we have pressed on the button:) 1")
-
         when (view?.id) {
-
             R.id.button -> {
                 viewModel.connect(ip.text.toString(), port.text.toString())
             }
         }
-        println("we have pressed on the button:) 2")
     }
 
-    fun joystickChanged(a: Float, e: Float) {
-        viewModel.setAileron(a)
-        viewModel.setElevator(e)
-    }
 }

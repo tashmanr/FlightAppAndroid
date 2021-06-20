@@ -5,9 +5,7 @@ import android.graphics.PointF
 class ViewModel {
     private lateinit var model : Model
     fun connect(ip:String, port:String){
-        println("went into connect ;)")
         model = Model(port.toInt(), ip)
-        println("connected :)")
     }
 
     fun setRudder(f: Float){
@@ -15,7 +13,6 @@ class ViewModel {
     }
 
     fun setThrottle(f: Float){
-        println("viewModel throttle is:$f")
         model.setThrottle(f)
     }
 

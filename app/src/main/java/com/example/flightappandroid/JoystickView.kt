@@ -17,9 +17,11 @@ import kotlin.math.min
 class JoystickView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
-    private lateinit var mainView: MainActivity
+    lateinit var onChange:(Float, Float) -> Unit
     private var middle1: PointF = PointF()
-    var middle2: PointF = PointF()
+    private var middle2: PointF = PointF()
+    var aileron : Float = 0.0F
+    var elevator : Float = 0.0F
     private var radius1: Float = 0.0F
     private var radius2: Float = 0.0F
     private var paint = Paint(Paint.ANTI_ALIAS_FLAG)
@@ -101,8 +103,9 @@ class JoystickView @JvmOverloads constructor(
 
             }
         }
-        print(middle2)
-        mainView.joystickChanged(middle2.x, middle2.y)
+        aileron = (middle2.x-middle1.x)/30
+        elevator = (middle2.y-middle1.y)/-30
+        onChange(aileron, elevator)
         return true
     }
 
@@ -125,10 +128,6 @@ class JoystickView @JvmOverloads constructor(
         paint.style = Paint.Style.FILL
         paint.color = Color.RED
         canvas.drawCircle(this.middle2.x, this.middle2.y, radius2, paint)
-    }
-
-    fun setMainView(mainActivity: MainActivity) {
-        mainView = mainActivity
     }
 
 }
