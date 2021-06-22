@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         joystick = findViewById<JoystickView>(R.id.joystick)
         throttle = findViewById<SeekBar>(R.id.throttle)
         rudder = findViewById<SeekBar>(R.id.rudder)
+        rudder.progress = 50
         joystick.onChange = {
                 aileron:Float, elevator:Float->
             viewModel.setAileron(aileron)
@@ -50,7 +51,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onStopTrackingTouch(seek: SeekBar) {
-                Log.d("myTag", throttle.progress.toString())
             }
         })
         rudder?.setOnSeekBarChangeListener(object :
@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onStopTrackingTouch(seek: SeekBar) {
-                Log.d("myTag", rudder.progress.toString())
             }
         })
 

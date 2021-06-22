@@ -12,6 +12,7 @@ import android.view.View
 import androidx.annotation.RequiresApi
 import kotlin.math.max
 import kotlin.math.min
+import kotlin.math.sqrt
 
 
 class JoystickView @JvmOverloads constructor(
@@ -49,48 +50,24 @@ class JoystickView @JvmOverloads constructor(
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when (event?.action) {
 
-            MotionEvent.ACTION_DOWN -> {
-                if (event != null) {
-                    middle2.x = event.x
-                }
-                if (event != null) {
-                    middle2.y = event.y
-                }
-            }
+
 
 
             MotionEvent.ACTION_MOVE -> {
-                if (event != null) {
-                    if (middle2.x < event.x) {
-                        middle2.x = max(event.x, middle1.x - 30)
-                    } else {
-                        middle2.x = min(event.x, middle1.x + 30)
-                    }
-                }
-                if (event != null) {
-                    if (middle2.y < event.y) {
-                        middle2.y = max(event.y, middle1.y - 30)
-                    } else {
-                        middle2.y = min(event.y, middle1.y + 30)
-                    }
+                if(event!=null) {
+                    var newPoint =  PointF(event.x,event.y)
+                    if (distance(middle1, newPoint) <= 50) {
+                            middle2.x = event.x
+                            middle2.y = event.y
+                        }
                 }
                 invalidate()
             }
 
             MotionEvent.ACTION_UP -> {
                 if (event != null) {
-                    if (middle2.x < event.x) {
-                        middle2.x = max(event.x, middle1.x - 30)
-                    } else {
-                        middle2.x = min(event.x, middle1.x + 30)
-                    }
-                }
-                if (event != null) {
-                    if (middle2.y < event.y) {
-                        middle2.y = max(event.y, middle1.y - 30)
-                    } else {
-                        middle2.y = min(event.y, middle1.y + 30)
-                    }
+                    middle2.x = middle1.x
+                    middle2.y = middle1.y
                 }
                 invalidate()
             }
@@ -103,8 +80,8 @@ class JoystickView @JvmOverloads constructor(
 
             }
         }
-        aileron = (middle2.x-middle1.x)/30
-        elevator = (middle2.y-middle1.y)/-30
+        aileron = (middle2.x-middle1.x)/50
+        elevator = (middle2.y-middle1.y)/-50
         onChange(aileron, elevator)
         return true
     }
@@ -128,6 +105,10 @@ class JoystickView @JvmOverloads constructor(
         paint.style = Paint.Style.FILL
         paint.color = Color.RED
         canvas.drawCircle(this.middle2.x, this.middle2.y, radius2, paint)
+    }
+
+    private fun distance(start: PointF, end: PointF): Float{
+        return sqrt(((start.x-end.x)*(start.x-end.x)) +((start.y-end.y)*(start.y-end.y)))
     }
 
 }
