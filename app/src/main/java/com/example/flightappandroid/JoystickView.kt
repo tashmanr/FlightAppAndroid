@@ -35,7 +35,7 @@ class JoystickView @JvmOverloads constructor(
         middle2.y = nH.toFloat() / 2
         var d = nW / 2
         radius1 = d.toFloat() - 80
-        radius2 = d.toFloat() - 120
+        radius2 = d.toFloat() - 150
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -56,7 +56,7 @@ class JoystickView @JvmOverloads constructor(
             MotionEvent.ACTION_MOVE -> {
                 if(event!=null) {
                     var newPoint =  PointF(event.x,event.y)
-                    if (distance(middle1, newPoint) <= 50) {
+                    if (distance(middle1, newPoint) <= 80) {
                             middle2.x = event.x
                             middle2.y = event.y
                         }
@@ -80,8 +80,8 @@ class JoystickView @JvmOverloads constructor(
 
             }
         }
-        aileron = (middle2.x-middle1.x)/50
-        elevator = (middle2.y-middle1.y)/-50
+        aileron = (middle2.x-middle1.x)/80
+        elevator = (middle2.y-middle1.y)/80
         onChange(aileron, elevator)
         return true
     }
@@ -94,7 +94,8 @@ class JoystickView @JvmOverloads constructor(
         paint.strokeWidth = 250F
         val newR = radius1 - 50
         canvas.drawCircle(this.middle1.x, this.middle1.y, newR, paint)
-        paint.color = Color.GREEN
+        paint.color = Color.GRAY
+
         paint.strokeWidth = 20F
         canvas.drawCircle(this.middle1.x, this.middle1.y, radius1, paint)
 
