@@ -33,6 +33,6 @@ Advanced Programming 2, BIU
 * Once the engine has started, you can takeoff, and start to fly! 
 
 **Additional Links:**
-* UML layout
+* [UML layout](https://github.com/tashmanr/FlightAppAndroid/blob/master/UML.PNG)
 * Video demo of App
 * [Slideshow Presentation](https://docs.google.com/presentation/d/1dpai5XFRa9HcAePZ2lzK913c3tnLR4JPuBFFtG4n6cs/edit?usp=sharing)
