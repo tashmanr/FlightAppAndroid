@@ -6,6 +6,7 @@ Advanced Programming 2, BIU
 * Throttle Seekbar
 * Rudder Seekbar
 * Client side of server, connects to FlightGear app
+* Snackbar - pops up when an error occurs
 
 **Project Structure:**
 
