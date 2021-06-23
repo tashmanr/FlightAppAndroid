@@ -34,4 +34,4 @@ Advanced Programming 2, BIU
 **Additional Links:**
 * UML layout
 * Video demo of App
-* Slideshow Presentation
+* [Slideshow Presentation](https://docs.google.com/presentation/d/1dpai5XFRa9HcAePZ2lzK913c3tnLR4JPuBFFtG4n6cs/edit?usp=sharing)
