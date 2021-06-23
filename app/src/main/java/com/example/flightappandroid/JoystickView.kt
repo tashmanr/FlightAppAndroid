@@ -10,8 +10,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.annotation.RequiresApi
-import kotlin.math.max
-import kotlin.math.min
 import kotlin.math.sqrt
 
 
@@ -21,13 +19,11 @@ class JoystickView @JvmOverloads constructor(
     lateinit var onChange:(Float, Float) -> Unit
     private var middle1: PointF = PointF()
     private var middle2: PointF = PointF()
-    var aileron : Float = 0.0F
-    var elevator : Float = 0.0F
+    private var aileron : Float = 0.0F
+    private var elevator : Float = 0.0F
     private var radius1: Float = 0.0F
     private var radius2: Float = 0.0F
     private var paint = Paint(Paint.ANTI_ALIAS_FLAG)
-    private var paint2 = Paint(Paint.ANTI_ALIAS_FLAG)
-    private var paint3 = Paint(Paint.ANTI_ALIAS_FLAG)
     override fun onSizeChanged(nW: Int, nH: Int, oW: Int, oH: Int) {
         middle1.x = nW.toFloat() / 2
         middle1.y = nH.toFloat() / 2

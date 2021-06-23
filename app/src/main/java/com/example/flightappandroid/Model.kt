@@ -1,16 +1,18 @@
 package com.example.flightappandroid
 
 import java.io.PrintWriter
+import java.lang.Exception
 import java.net.Socket
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.LinkedBlockingQueue
 
-class Model constructor(port: Int, ip: String) {
-    var modelPort = port
-    var modelIP = ip
-    lateinit var fg: Socket
-    lateinit var out: PrintWriter
-    var tasks: BlockingQueue<Runnable> = LinkedBlockingQueue<Runnable>();
+class Model constructor(port: String, ip: String) {
+    private var modelPort = port
+    private var modelIP = ip
+    private var isConnected = false
+    private lateinit var fg: Socket
+    private lateinit var out: PrintWriter
+    private var tasks: BlockingQueue<Runnable> = LinkedBlockingQueue<Runnable>();
 
     var tasksThread = Thread(Runnable() {
         while (true) {
@@ -19,46 +21,48 @@ class Model constructor(port: Int, ip: String) {
             } catch (e: InterruptedException) {
             }
         }
-    })
+    }).start()
+
+    fun checkConnection(): Boolean {
+        return isConnected
+    }
 
     fun connect() {
         tasks.put(Runnable() {
-                println("Connecting now to the port! $modelPort with IP of $modelIP")
-                fg = Socket(modelIP, modelPort)
+            try {
+                fg = Socket(modelIP, modelPort.toInt())
                 out = PrintWriter(fg.getOutputStream(), true)
+                isConnected = fg.isConnected
+            } catch (e: Exception) {
+            }
         })
     }
 
     fun setRudder(f: Float) {
         tasks.put(Runnable() {
-                println("setting rudder at $f")
-                out.print("set /controls/flight/rudder " + f.toString() + "\r\n")
-                out.flush()
+            out.print("set /controls/flight/rudder $f\r\n")
+            out.flush()
         })
     }
 
     fun setThrottle(f: Float) {
         tasks.put(Runnable() {
-                println("setting throttle at $f")
-                println(f.toString())
-                out.print("set /controls/engines/current-engine/throttle " + f.toString() + "\r\n")
-                out.flush()
+            out.print("set /controls/engines/current-engine/throttle $f\r\n")
+            out.flush()
         })
     }
 
     fun setElevator(f: Float) {
         tasks.put(Runnable() {
-                println("setting elevator at $f")
-                out.print("set /controls/flight/elevator "+ f.toString() + "\r\n")
-                out.flush()
+            out.print("set /controls/flight/elevator $f\r\n")
+            out.flush()
         })
     }
 
     fun setAileron(f: Float) {
         tasks.put(Runnable() {
-                println("setting aileron at $f")
-                out.print("set /controls/flight/aileron "+ f.toString() + "\r\n")
-                out.flush()
+            out.print("set /controls/flight/aileron $f\r\n")
+            out.flush()
         })
     }
 }

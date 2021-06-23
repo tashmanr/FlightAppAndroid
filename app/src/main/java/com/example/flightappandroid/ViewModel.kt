@@ -1,30 +1,32 @@
 package com.example.flightappandroid
 
-import android.graphics.PointF
+import java.util.concurrent.Future
 
 class ViewModel {
-    private lateinit var model : Model
-    fun connect(ip:String, port:String){
-        println(port + ip)
-        model = Model(port.toInt(), ip)
+    private lateinit var model: Model
+
+    fun connect(ip: String, port: String) {
+        model = Model(port, ip)
         model.connect()
-        println("Connected!")
-        model.tasksThread.start()
     }
 
-    fun setRudder(f: Float){
+    fun checkConnection(): Boolean {
+        return model.checkConnection()
+    }
+
+    fun setRudder(f: Float) {
         model.setRudder(f)
     }
 
-    fun setThrottle(f: Float){
+    fun setThrottle(f: Float) {
         model.setThrottle(f)
     }
 
-    fun setElevator(f: Float){
+    fun setElevator(f: Float) {
         model.setElevator(f)
     }
 
-    fun setAileron(f: Float){
+    fun setAileron(f: Float) {
         model.setAileron(f)
     }
 }
