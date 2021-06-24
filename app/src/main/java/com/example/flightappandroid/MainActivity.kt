@@ -22,9 +22,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var throttle: SeekBar
     private lateinit var rudder: SeekBar
     private var isConnected = false
+    
+    //main function in main activity is in charge of drawing everything
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //finding all views that we want to communicate with
         connectButton = findViewById<Button>(R.id.button)
         connectButton.setOnClickListener(this)
         ip = findViewById<EditText>(R.id.IP)
@@ -33,6 +36,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         throttle = findViewById<SeekBar>(R.id.throttle)
         rudder = findViewById<SeekBar>(R.id.rudder)
         rudder.progress = 50
+        
+        //intialising lambda expression declared in JoystickView to set controls of joystick when moved
         joystick.onChange = { aileron: Float, elevator: Float ->
             if (isConnected) {
                 viewModel.setAileron(aileron)
@@ -41,6 +46,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 showErrorMessage("Not connected to FlightGear")
             }
         }
+        //listener for throttle progress
         throttle?.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(
@@ -62,6 +68,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             override fun onStopTrackingTouch(seek: SeekBar) {
             }
         })
+        //listener for rudder progress
         rudder?.setOnSeekBarChangeListener(object :
             SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(
@@ -86,7 +93,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     }
 
-
+    //function that waits for connect button to be pressed when pressed will tell viewmodel to tell model to attempt to open a socket and connect to FlightGear
     override fun onClick(view: View?) {
         when (view?.id) {
             R.id.button -> {
@@ -103,14 +110,16 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             }
         }
     }
-
+    
+    //function for showing the appropriate error message depending upon the error
     @SuppressLint("ShowToast")
     fun showErrorMessage(s: String) {
         Snackbar.make(joystick, s, Snackbar.LENGTH_SHORT)
             .setAnimationMode(BaseTransientBottomBar.ANIMATION_MODE_FADE)
             .setBackgroundTint(Color.GRAY).show()
     }
-
+    
+    //function that checks the connection to FlightGear
     private fun checkConnection(): Boolean {
         isConnected = viewModel.checkConnection()
         return isConnected
