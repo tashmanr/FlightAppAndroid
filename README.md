@@ -27,7 +27,7 @@ Advanced Programming 2, BIU
 * Download and install the FlightGear app at https://flightgear.org/
 * Upon opening the FlightGear app, go to settings -> additional settings and write: `--telnet=socket,in,10,127.0.0.1,6400,tcp`
 * Click on "Fly" in the FlightGear app, and once it's up and running, press `v` twice. If you see the plane on the runway, you're good to go.
-* In our Flight App, type in the IP address *127.0.0.1* and port *6400* , and then click on **Connect** in order to connect to FlightGear's server. 
+* In our Flight App, type in the IP address and port, and then click on **Connect** in order to connect to FlightGear's server. 
 * If you want to fly it from your device put in your IP address
 * Bring the throttle up to 100%, and then in FlightGear, click on **autostart**
 * Once the engine has started, you can takeoff, and start to fly! 
