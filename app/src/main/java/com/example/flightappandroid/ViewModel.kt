@@ -2,8 +2,10 @@ package com.example.flightappandroid
 
 import java.util.concurrent.Future
 
+
+//All functions im this class are merely there to seperate between the view and the model and have no functionality of themselves names are sel explanatory
 class ViewModel {
-    private lateinit var model: Model
+    private lateinit var model: Model //field model will be intialised in the future
 
     fun connect(ip: String, port: String) {
         model = Model(port, ip)
