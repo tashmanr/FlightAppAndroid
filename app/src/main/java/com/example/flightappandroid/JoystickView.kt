@@ -16,7 +16,7 @@ import kotlin.math.sqrt
 class JoystickView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null, defStyleAttr: Int = 0
 ) : View(context, attrs, defStyleAttr) {
-    lateinit var onChange:(Float, Float) -> Unit
+    lateinit var onChange:(Float, Float) -> Unit //lambda expression will be defined in mainActivity
     private var middle1: PointF = PointF()
     private var middle2: PointF = PointF()
     private var aileron : Float = 0.0F
@@ -24,6 +24,8 @@ class JoystickView @JvmOverloads constructor(
     private var radius1: Float = 0.0F
     private var radius2: Float = 0.0F
     private var paint = Paint(Paint.ANTI_ALIAS_FLAG)
+    
+    //calcu;ates intial size and place of joystick
     override fun onSizeChanged(nW: Int, nH: Int, oW: Int, oH: Int) {
         middle1.x = nW.toFloat() / 2
         middle1.y = nH.toFloat() / 2
@@ -33,7 +35,8 @@ class JoystickView @JvmOverloads constructor(
         radius1 = d.toFloat() - 80
         radius2 = d.toFloat() - 150
     }
-
+    
+    //function in charge of drawing content of joystick
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
         drawFirstCircle(canvas)
@@ -41,7 +44,8 @@ class JoystickView @JvmOverloads constructor(
 
     }
 
-
+    
+    //in case of a touch event updates the place of the joystick according to users request
     @RequiresApi(Build.VERSION_CODES.M)
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         when (event?.action) {
@@ -81,7 +85,8 @@ class JoystickView @JvmOverloads constructor(
         onChange(aileron, elevator)
         return true
     }
-
+    
+    //draws the background of the joystick
     private fun drawFirstCircle(canvas: Canvas) {
         paint.isAntiAlias = true
         paint.isDither = true
@@ -97,13 +102,15 @@ class JoystickView @JvmOverloads constructor(
 
 
     }
-
+    
+    //draws the middle of the joystick
     private fun drawSecondCircle(canvas: Canvas) {
         paint.style = Paint.Style.FILL
         paint.color = Color.RED
         canvas.drawCircle(this.middle2.x, this.middle2.y, radius2, paint)
     }
-
+    
+    //calculates ditance between two points namely the middle and destination point to ensure we dont leave the joystick 
     private fun distance(start: PointF, end: PointF): Float{
         return sqrt(((start.x-end.x)*(start.x-end.x)) +((start.y-end.y)*(start.y-end.y)))
     }
