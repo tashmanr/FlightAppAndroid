@@ -34,5 +34,5 @@ Advanced Programming 2, BIU
 
 **Additional Links:**
 * [UML layout](https://github.com/tashmanr/FlightAppAndroid/blob/master/UML.PNG)
-* Video demo of App
+* [Video demo of App](https://www.youtube.com/watch?v=xQxl0ETFUVo&ab_channel=BeccaTashman)
 * [Slideshow Presentation](https://docs.google.com/presentation/d/1dpai5XFRa9HcAePZ2lzK913c3tnLR4JPuBFFtG4n6cs/edit?usp=sharing)
