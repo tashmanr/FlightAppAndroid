@@ -13,7 +13,8 @@ class Model constructor(port: String, ip: String) {
     private lateinit var fg: Socket
     private lateinit var out: PrintWriter
     private var tasks: BlockingQueue<Runnable> = LinkedBlockingQueue<Runnable>();
-
+    
+    //Thread that is in charge of taking tasks out of queue and running them
     var tasksThread = Thread(Runnable() {
         while (true) {
             try {
@@ -22,11 +23,13 @@ class Model constructor(port: String, ip: String) {
             }
         }
     }).start()
-
+    
+    //checks that connection is valid
     fun checkConnection(): Boolean {
         return isConnected
     }
-
+    
+    //first task to be inserted to queue is the task to connect to the flightGear
     fun connect() {
         tasks.put(Runnable() {
             try {
