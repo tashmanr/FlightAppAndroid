@@ -25,7 +25,7 @@ class JoystickView @JvmOverloads constructor(
     private var radius2: Float = 0.0F
     private var paint = Paint(Paint.ANTI_ALIAS_FLAG)
     
-    //calcu;ates intial size and place of joystick
+    //calculates intial size and place of joystick
     override fun onSizeChanged(nW: Int, nH: Int, oW: Int, oH: Int) {
         middle1.x = nW.toFloat() / 2
         middle1.y = nH.toFloat() / 2
