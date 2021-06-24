@@ -26,7 +26,7 @@ Advanced Programming 2, BIU
 **Instruction to Run App:**
 * Download and install the FlightGear app at https://flightgear.org/
 * Upon opening the FlightGear app, go to settings -> additional settings and write: `--telnet=socket,in,10,127.0.0.1,6400,tcp`
-* Click on "Fly" in the FlightGear app, and once it's up and running, press `v` twice. If you see the plane on the runway, you're good to go.
+* Click on **Fly** in the FlightGear app, and once it's up and running, press `v` twice. If you see the plane on the runway, you're good to go.
 * In FlightGear, click on **autostart**
 * In our Flight App, type in the IP address and port, and then click on **Connect** in order to connect to FlightGear's server. 
 * Bring the throttle up to 100%, and steer using the rudder. Once the velocity is high enough, you can takeoff, and start to fly! 
